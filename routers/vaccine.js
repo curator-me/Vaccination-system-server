@@ -1,16 +1,16 @@
 // routers/vaccine.js
 import express from "express";
-import { ObjectId } from "mongodb";
+import { verifyToken } from "../middleware.js";
 
 const router = express.Router();
 
 let vaccineCollection;
 
+// Function to set the collection from server.js or main file
 export const setVaccineCollection = ({ vaccineCollection: lc }) => {
   vaccineCollection = lc;
 };
-
-router.get("/vaccine", async (req, res) => {
+router.get("/vaccine",verifyToken, async (req, res) => {
   try {
     const vaccines = await vaccineCollection.find({}).toArray();
     res.json(vaccines);
@@ -21,11 +21,10 @@ router.get("/vaccine", async (req, res) => {
   }
 });
 
-router.get("/vaccine/:_id", async (req, res) => {
+router.get("/vaccine/:_id",verifyToken, async (req, res) => {
   try {
     const _id = req.params._id;
     const vaccine = await vaccineCollection.findOne({ _id: _id });
-
     if (!vaccine) return res.status(404).json({ message: "Vaccine not found" });
     res.json(vaccine);
   } catch (err) {
@@ -33,4 +32,4 @@ router.get("/vaccine/:_id", async (req, res) => {
   }
 });
 
-export { router };
+export default router ;

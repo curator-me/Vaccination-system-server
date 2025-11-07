@@ -1,34 +1,22 @@
-const express = require("express");
-const cors = require("cors");
-const { MongoClient, ServerApiVersion } = require("mongodb");
-const cron = require("node-cron");
-const nodemailer = require("nodemailer");
-const dayjs = require("dayjs");
-require("dotenv").config();
+import express from "express";
+import cors from "cors";
+import { MongoClient, ServerApiVersion } from "mongodb";
+import cron from "node-cron";
+import nodemailer from "nodemailer";
+import dayjs from "dayjs";
+import dotenv from "dotenv";
 
-const {
-  router: vaccineCentersRouter,
+dotenv.config();
+
+import vaccineCentersRouter, {
   setVaccineCenterCollection,
-} = require("./routers/vaccineCenters");
-
-const {
-  router: appointmentRouter,
+} from "./routers/vaccineCenters.js";
+import appointmentRouter, {
   setAppointmentCollection,
-} = require("./routers/appointment");
-
-const {
-  router: vaccineRouter, setVaccineCollection
-} = require("./routers/vaccine")
-
-const {
-  router: chatbotRouter,
-  setChatbotCollections,
-} = require("./routers/chatbot");
-
-const {
-  router: userRouter,
-  setUsersCollection,
-} = require("./routers/user");
+} from "./routers/appointment.js";
+import vaccineRouter, { setVaccineCollection } from "./routers/vaccine.js";
+import chatbotRouter, { setChatbotCollections } from "./routers/chatbot.js";
+import userRouter, { setUsersCollection } from "./routers/user.js";
 
 let vaccineCenterCollection;
 let appointmentCollection;
@@ -66,7 +54,7 @@ async function connectDB() {
     vaccineCenterCollection = db.collection("vaccine_centers");
     appointmentCollection = db.collection("appointments");
     usersCollection = db.collection("users");
-    vaccineCollection = db.collection("vaccine")
+    vaccineCollection = db.collection("vaccine");
 
     // Attach collection setters
     setVaccineCollection({ vaccineCollection });
@@ -77,13 +65,13 @@ async function connectDB() {
       usersCollection,
     });
     setUsersCollection({ usersCollection });
-    
+
     // 🔹 FIXED: Pass all required collections to chatbot
-    setChatbotCollections({ 
-      usersCollection, 
+    setChatbotCollections({
+      usersCollection,
       appointmentCollection,
       vaccineCentersCollection: vaccineCenterCollection,
-      vaccineCollection: vaccineCollection
+      vaccineCollection: vaccineCollection,
     });
 
     // Register routes - FIXED: Use specific paths for each router
@@ -168,7 +156,7 @@ app.get("/health", (req, res) => {
   res.json({
     status: "running",
     message: "Vaccine System Backend is operational",
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 });
 

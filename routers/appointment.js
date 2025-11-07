@@ -1,5 +1,6 @@
 // routers/appointment.js
 import express from "express";
+import { verifyToken } from "../middleware.js";
 
 const router = express.Router();
 
@@ -19,7 +20,7 @@ export const setAppointmentCollection = ({
 };
 
 // GET all appointments
-router.get("/appointment", async (req, res) => {
+router.get("/appointments", verifyToken, async (req, res) => {
   try {
     const appointments = await appointmentCollection.find({}).toArray();
     res.json(appointments);
@@ -30,15 +31,13 @@ router.get("/appointment", async (req, res) => {
 });
 
 // 🟢 GET — all appointments by userId
-router.get("/api/appointments/:userId", async (req, res) => {
+router.get("/appointments/:userId", verifyToken, async (req, res) => {
   try {
     const { userId } = req.params;
 
     if (!userId) return res.status(400).json({ message: "userId is required" });
 
-    const appointments = await appointmentCollection
-      .find({ userId })
-      .toArray();
+    const appointments = await appointmentCollection.find({ userId }).toArray();
 
     if (!appointments.length) {
       return res
@@ -54,7 +53,7 @@ router.get("/api/appointments/:userId", async (req, res) => {
 });
 
 // 🟢 POST: Create a new appointment
-router.post("/", async (req, res) => {
+router.post("/appointments/add", verifyToken, async (req, res) => {
   try {
     const { userId, vaccine_id, center_id, phone_no } = req.body;
 
@@ -138,4 +137,4 @@ router.post("/", async (req, res) => {
   }
 });
 
-export { router };
+export default router ;

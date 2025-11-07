@@ -1,14 +1,15 @@
-const express = require("express");
+import express from "express";
+
 const router = express.Router();
 
 let vaccineCentersCollection;
 let vaccineInventoryCollection;
 let usersCollection;
 
-const setChatbotCollections = ({ 
+export const setChatbotCollections = ({
   vaccineCentersCollection: vcc,
   vaccineInventoryCollection: vic,
-  usersCollection: uc
+  usersCollection: uc,
 }) => {
   vaccineCentersCollection = vcc;
   vaccineInventoryCollection = vic;
@@ -38,7 +39,13 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 ✅ Reduces disease spread
 ✅ Protects vulnerable people
 ✅ Cost-effective healthcare`,
-      keywords: ["what is vaccine", "vaccination meaning", "how vaccine works", "টিকা কী", "ভ্যাকসিন কী"]
+      keywords: [
+        "what is vaccine",
+        "vaccination meaning",
+        "how vaccine works",
+        "টিকা কী",
+        "ভ্যাকসিন কী",
+      ],
     },
     {
       question: "why vaccinate children",
@@ -60,7 +67,13 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 • Better school attendance
 • Prevents lifelong disabilities
 • Protects future generations`,
-      keywords: ["why vaccine", "importance", "benefits", "টিকা দেয়া কেন জরুরি", "ভ্যাকসিনের গুরুত্ব"]
+      keywords: [
+        "why vaccine",
+        "importance",
+        "benefits",
+        "টিকা দেয়া কেন জরুরি",
+        "ভ্যাকসিনের গুরুত্ব",
+      ],
     },
     {
       question: "are vaccines safe",
@@ -86,7 +99,7 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 
 ❌ MYTH: Vaccines contain harmful ingredients
 ✅ FACT: Ingredients are safe and carefully regulated`,
-      keywords: ["safe", "safety", "risk", "danger", "নিরাপদ", "ঝুঁকি"]
+      keywords: ["safe", "safety", "risk", "danger", "নিরাপদ", "ঝুঁকি"],
     },
     {
       question: "vaccine ingredients",
@@ -105,8 +118,8 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 • Quantities are very small and safe
 • Body processes them naturally
 • No harmful effects in decades of use`,
-      keywords: ["ingredients", "content", "what inside", "উপাদান", "কী থাকে"]
-    }
+      keywords: ["ingredients", "content", "what inside", "উপাদান", "কী থাকে"],
+    },
   ],
 
   faq_myth_busting: [
@@ -131,7 +144,14 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 
 ❌ **MYTH:** Vaccine side effects are worse than diseases
 ✅ **FACT:** Diseases cause far more harm than vaccines`,
-      keywords: ["myth", "false", "conspiracy", "misinformation", "মিথ", "গুজব"]
+      keywords: [
+        "myth",
+        "false",
+        "conspiracy",
+        "misinformation",
+        "মিথ",
+        "গুজব",
+      ],
     },
     {
       question: "do vaccines contain microchips",
@@ -148,8 +168,14 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 • Stabilizers to maintain effectiveness
 • Preservatives to prevent contamination
 • All ingredients are safe and necessary`,
-      keywords: ["microchip", "tracking", "conspiracy", "মাইক্রোচিপ", "ট্র্যাকিং"]
-    }
+      keywords: [
+        "microchip",
+        "tracking",
+        "conspiracy",
+        "মাইক্রোচিপ",
+        "ট্র্যাকিং",
+      ],
+    },
   ],
 
   // ==================== CITIZENS GUIDANCE ====================
@@ -177,7 +203,7 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 • Mobile phone for contact
 • Previous vaccination records
 • List of medications/allergies`,
-      keywords: ["prepare", "before", "ready", "প্রস্তুতি", "ভ্যাকসিনের আগে"]
+      keywords: ["prepare", "before", "ready", "প্রস্তুতি", "ভ্যাকসিনের আগে"],
     },
     {
       question: "what to bring to vaccination center",
@@ -201,8 +227,8 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 • Small toy for children
 • Book or entertainment
 • Emergency contact numbers`,
-      keywords: ["bring", "documents", "items", "কী নিয়ে যাবেন", "ডকুমেন্ট"]
-    }
+      keywords: ["bring", "documents", "items", "কী নিয়ে যাবেন", "ডকুমেন্ট"],
+    },
   ],
 
   guidance_after_vaccination: [
@@ -230,7 +256,7 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 • Sports: When comfortable
 
 **💡 Remember:** Mild side effects mean the vaccine is working!`,
-      keywords: ["after", "post vaccine", "care", "টিকার পরে", "যত্ন"]
+      keywords: ["after", "post vaccine", "care", "টিকার পরে", "যত্ন"],
     },
     {
       question: "managing vaccine side effects",
@@ -260,8 +286,14 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 • Difficulty breathing
 • Severe allergic reaction
 • Symptoms worsen after 48 hours`,
-      keywords: ["side effects management", "fever care", "pain relief", "জ্বরের চিকিৎসা", "ব্যথা কমানো"]
-    }
+      keywords: [
+        "side effects management",
+        "fever care",
+        "pain relief",
+        "জ্বরের চিকিৎসা",
+        "ব্যথা কমানো",
+      ],
+    },
   ],
 
   guidance_special_cases: [
@@ -288,7 +320,13 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 • Discuss all vaccination decisions
 • Follow medical advice carefully
 • Report any concerns immediately`,
-      keywords: ["pregnant", "pregnancy", "expecting mother", "গর্ভবতী", "প্রসূতি"]
+      keywords: [
+        "pregnant",
+        "pregnancy",
+        "expecting mother",
+        "গর্ভবতী",
+        "প্রসূতি",
+      ],
     },
     {
       question: "vaccination with chronic diseases",
@@ -312,7 +350,14 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 • Vaccines prevent serious complications
 • Reduces hospitalization risk
 • Improves quality of life`,
-      keywords: ["chronic disease", "diabetes", "heart", "asthma", "ক্রনিক রোগ", "ডায়াবেটিস"]
+      keywords: [
+        "chronic disease",
+        "diabetes",
+        "heart",
+        "asthma",
+        "ক্রনিক রোগ",
+        "ডায়াবেটিস",
+      ],
     },
     {
       question: "missed vaccination schedule",
@@ -336,8 +381,8 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 • Better late than never!
 • Partial protection is better than none
 • Health workers will help you catch up`,
-      keywords: ["missed", "late", "catch up", "বিলম্ব", "মিস হয়ে গেছে"]
-    }
+      keywords: ["missed", "late", "catch up", "বিলম্ব", "মিস হয়ে গেছে"],
+    },
   ],
 
   // ==================== CHILD VACCINATION SCHEDULE ====================
@@ -359,8 +404,15 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 | **TT** | Tetanus | 2 doses | Pregnant women |
 
 💡 *All vaccines are FREE at government health centers*`,
-      keywords: ["child vaccine", "baby vaccine", "vaccination schedule", "immunization", "শিশুর টিকা", "টিকা সময়সূচী"]
-    }
+      keywords: [
+        "child vaccine",
+        "baby vaccine",
+        "vaccination schedule",
+        "immunization",
+        "শিশুর টিকা",
+        "টিকা সময়সূচী",
+      ],
+    },
   ],
 
   // ==================== PRACTICAL INFORMATION ====================
@@ -392,7 +444,7 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 • Vaccination cards
 • Health education
 • Growth monitoring`,
-      keywords: ["where", "center", "location", "place", "কেন্দ্র", "স্থান"]
+      keywords: ["where", "center", "location", "place", "কেন্দ্র", "স্থান"],
     },
     {
       question: "vaccination cost",
@@ -419,8 +471,8 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 • No one denied for inability to pay
 • Government covers all costs
 • Focus on universal access`,
-      keywords: ["cost", "price", "free", "paid", "খরচ", "মূল্য"]
-    }
+      keywords: ["cost", "price", "free", "paid", "খরচ", "মূল্য"],
+    },
   ],
 
   // ==================== EMERGENCY & SUPPORT ====================
@@ -450,7 +502,7 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 • Website: dghs.gov.bd
 • Email: dg@dghs.gov.bd
 • Social Media: Ministry of Health`,
-      keywords: ["emergency", "contact", "help", "support", "জরুরি", "যোগাযোগ"]
+      keywords: ["emergency", "contact", "help", "support", "জরুরি", "যোগাযোগ"],
     },
     {
       question: "report vaccine problem",
@@ -479,15 +531,22 @@ Vaccination is a simple, safe, and effective way to protect people against harmf
 • Provide accurate information
 • Keep vaccination records
 • Follow up if needed`,
-      keywords: ["report", "problem", "complaint", "issue", "রিপোর্ট", "সমস্যা"]
-    }
-  ]
+      keywords: [
+        "report",
+        "problem",
+        "complaint",
+        "issue",
+        "রিপোর্ট",
+        "সমস্যা",
+      ],
+    },
+  ],
 };
 
 // ==================== SIMPLIFIED INTENT DETECTION ====================
 function detectVaccineIntent(message) {
   const lowerMessage = message.toLowerCase().trim();
-  
+
   // Check all FAQ categories for keyword matches
   for (const [category, faqs] of Object.entries(VACCINE_TRAINING_DATA)) {
     for (const faq of faqs) {
@@ -498,7 +557,7 @@ function detectVaccineIntent(message) {
             confidence: "high",
             matched_keyword: keyword,
             is_faq: true,
-            faq_question: faq.question
+            faq_question: faq.question,
           };
         }
       }
@@ -507,56 +566,56 @@ function detectVaccineIntent(message) {
 
   // Simple pattern matching for categories
   const intentPatterns = [
-    { 
-      type: 'faq_general', 
+    {
+      type: "faq_general",
       patterns: [/what is|how does|explain|meaning|কী|কিভাবে/],
-      confidence: "high" 
+      confidence: "high",
     },
-    { 
-      type: 'faq_myth_busting', 
+    {
+      type: "faq_myth_busting",
       patterns: [/myth|false|rumor|conspiracy|not true|মিথ|গুজব/],
-      confidence: "high" 
+      confidence: "high",
     },
-    { 
-      type: 'guidance_before_vaccination', 
+    {
+      type: "guidance_before_vaccination",
       patterns: [/prepare|before|ready|bring|প্রস্তুতি|আগে/],
-      confidence: "high" 
+      confidence: "high",
     },
-    { 
-      type: 'guidance_after_vaccination', 
+    {
+      type: "guidance_after_vaccination",
       patterns: [/after|post|care|management|পরের|যত্ন/],
-      confidence: "high" 
+      confidence: "high",
     },
-    { 
-      type: 'guidance_special_cases', 
+    {
+      type: "guidance_special_cases",
       patterns: [/pregnant|chronic|disease|missed|late|গর্ভবতী|বিলম্ব/],
-      confidence: "high" 
+      confidence: "high",
     },
-    { 
-      type: 'practical_info', 
+    {
+      type: "practical_info",
       patterns: [/where|center|location|cost|price|কেন্দ্র|খরচ/],
-      confidence: "high" 
+      confidence: "high",
     },
-    { 
-      type: 'emergency_support', 
+    {
+      type: "emergency_support",
       patterns: [/emergency|contact|help|report|problem|জরুরি|রিপোর্ট/],
-      confidence: "high" 
+      confidence: "high",
     },
-    { 
-      type: 'child_vaccination', 
+    {
+      type: "child_vaccination",
       patterns: [/child|baby|schedule|bcg|opv|polio|শিশু|সময়সূচী/],
-      confidence: "high" 
+      confidence: "high",
     },
-    { 
-      type: 'greeting', 
+    {
+      type: "greeting",
       patterns: [/hello|hi|hey|good morning|good afternoon|হ্যালো|নমস্কার/],
-      confidence: "high" 
+      confidence: "high",
     },
-    { 
-      type: 'thanks', 
+    {
+      type: "thanks",
       patterns: [/thanks|thank you|appreciate|grateful|ধন্যবাদ/],
-      confidence: "high" 
-    }
+      confidence: "high",
+    },
   ];
 
   for (const intent of intentPatterns) {
@@ -566,37 +625,37 @@ function detectVaccineIntent(message) {
           type: intent.type,
           confidence: intent.confidence,
           matched_pattern: pattern.toString(),
-          is_faq: false
+          is_faq: false,
         };
       }
     }
   }
 
-  return { 
-    type: 'general', 
-    confidence: "low", 
-    is_faq: false 
+  return {
+    type: "general",
+    confidence: "low",
+    is_faq: false,
   };
 }
 
 // ==================== SIMPLIFIED RESPONSE GENERATOR ====================
 function getRuleBasedResponse(message, intent) {
   const lowerMessage = message.toLowerCase();
-  
+
   // Try to find exact FAQ match first
   if (intent.is_faq && intent.faq_question) {
     const categoryData = VACCINE_TRAINING_DATA[intent.type];
     if (categoryData) {
-      const faq = categoryData.find(f => f.question === intent.faq_question);
+      const faq = categoryData.find((f) => f.question === intent.faq_question);
       if (faq) {
         return {
           response: faq.answer,
-          data: { 
-            type: intent.type, 
+          data: {
+            type: intent.type,
             source: "faq_database",
             confidence: "exact_match",
-            category: getCategoryDisplayName(intent.type)
-          }
+            category: getCategoryDisplayName(intent.type),
+          },
         };
       }
     }
@@ -607,48 +666,49 @@ function getRuleBasedResponse(message, intent) {
   if (categoryData && categoryData.length > 0) {
     return {
       response: categoryData[0].answer,
-      data: { 
-        type: intent.type, 
+      data: {
+        type: intent.type,
         source: "category_database",
         confidence: "category_match",
-        category: getCategoryDisplayName(intent.type)
-      }
+        category: getCategoryDisplayName(intent.type),
+      },
     };
   }
 
   // Handle greetings
-  if (intent.type === 'greeting') {
+  if (intent.type === "greeting") {
     return {
       response: getWelcomeMessage(),
-      data: { type: 'greeting', confidence: "high" }
+      data: { type: "greeting", confidence: "high" },
     };
   }
 
   // Handle thanks
-  if (intent.type === 'thanks') {
+  if (intent.type === "thanks") {
     return {
-      response: "You're welcome! 😊 I'm glad I could help. If you have any more questions about vaccination, feel free to ask!",
-      data: { type: 'thanks', confidence: "high" }
+      response:
+        "You're welcome! 😊 I'm glad I could help. If you have any more questions about vaccination, feel free to ask!",
+      data: { type: "thanks", confidence: "high" },
     };
   }
 
   // Default response for general queries
   return {
     response: getContextualResponse(),
-    data: { type: 'general', confidence: intent.confidence }
+    data: { type: "general", confidence: intent.confidence },
   };
 }
 
 function getCategoryDisplayName(category) {
   const displayNames = {
-    'faq_general': 'General FAQ',
-    'faq_myth_busting': 'Myth Busting',
-    'guidance_before_vaccination': 'Pre-Vaccination Guidance',
-    'guidance_after_vaccination': 'Post-Vaccination Care',
-    'guidance_special_cases': 'Special Cases Guidance',
-    'child_vaccination': 'Child Vaccination',
-    'practical_info': 'Practical Information',
-    'emergency_support': 'Emergency & Support'
+    faq_general: "General FAQ",
+    faq_myth_busting: "Myth Busting",
+    guidance_before_vaccination: "Pre-Vaccination Guidance",
+    guidance_after_vaccination: "Post-Vaccination Care",
+    guidance_special_cases: "Special Cases Guidance",
+    child_vaccination: "Child Vaccination",
+    practical_info: "Practical Information",
+    emergency_support: "Emergency & Support",
   };
   return displayNames[category] || category;
 }
@@ -710,19 +770,21 @@ const conversationCache = new Map();
 // ==================== MAIN CHAT ENDPOINT ====================
 router.post("/chat", async (req, res) => {
   try {
-    const { 
-      message, 
+    const {
+      message,
       user_id = "anonymous",
-      conversation_id = generateConversationId()
+      conversation_id = generateConversationId(),
     } = req.body;
 
-    console.log(`💬 Chat request from ${user_id}: ${message.substring(0, 50)}...`);
+    console.log(
+      `💬 Chat request from ${user_id}: ${message.substring(0, 50)}...`
+    );
 
     if (!message || message.trim().length === 0) {
       return res.json({
         success: false,
         response: "Please type a message to start chatting!",
-        source: "error"
+        source: "error",
       });
     }
 
@@ -730,12 +792,14 @@ router.post("/chat", async (req, res) => {
     let conversation = conversationCache.get(conversation_id) || {
       history: [],
       user_id: user_id,
-      created_at: new Date()
+      created_at: new Date(),
     };
 
     // Detect intent
     const intent = detectVaccineIntent(message);
-    console.log(`🎯 Detected intent: ${intent.type} (confidence: ${intent.confidence})`);
+    console.log(
+      `🎯 Detected intent: ${intent.type} (confidence: ${intent.confidence})`
+    );
 
     // Get rule-based response (no AI integration)
     const ruleResponse = getRuleBasedResponse(message, intent);
@@ -749,7 +813,7 @@ router.post("/chat", async (req, res) => {
       intent: intent.type,
       source: "rule-based",
       confidence: intent.confidence,
-      category: getCategoryDisplayName(intent.type)
+      category: getCategoryDisplayName(intent.type),
     });
 
     // Keep only last 6 messages
@@ -770,20 +834,20 @@ router.post("/chat", async (req, res) => {
       source: "rule-based",
       confidence: intent.confidence,
       timestamp: new Date().toISOString(),
-      history_length: conversation.history.length
+      history_length: conversation.history.length,
     });
-
   } catch (error) {
     console.error("💥 Chat endpoint error:", error);
-    
-    const fallbackResponse = "I'm here to help with comprehensive vaccination information! Please try again or contact health helpline: 16263";
-    
+
+    const fallbackResponse =
+      "I'm here to help with comprehensive vaccination information! Please try again or contact health helpline: 16263";
+
     res.json({
       success: true,
       response: fallbackResponse,
       conversation_id: req.body?.conversation_id || generateConversationId(),
       source: "fallback",
-      error: "Service recovered with fallback"
+      error: "Service recovered with fallback",
     });
   }
 });
@@ -806,56 +870,68 @@ router.get("/test", (req, res) => {
     mode: "FAQ Expert + Citizens Guidance (Rule-based)",
     statistics: {
       total_categories: Object.keys(VACCINE_TRAINING_DATA).length,
-      total_faqs: Object.values(VACCINE_TRAINING_DATA).reduce((sum, faqs) => sum + faqs.length, 0),
+      total_faqs: Object.values(VACCINE_TRAINING_DATA).reduce(
+        (sum, faqs) => sum + faqs.length,
+        0
+      ),
       category_breakdown: categoryStats,
       bengali_support: true,
-      active_conversations: conversationCache.size
+      active_conversations: conversationCache.size,
     },
     endpoints: {
       chat: "POST /api/chatbot/chat",
       categories: "GET /api/chatbot/categories",
-      search: "POST /api/chatbot/search"
-    }
+      search: "POST /api/chatbot/search",
+    },
   });
 });
 
 // Get all FAQ categories
 router.get("/categories", (req, res) => {
-  const categories = Object.keys(VACCINE_TRAINING_DATA).map(category => ({
+  const categories = Object.keys(VACCINE_TRAINING_DATA).map((category) => ({
     id: category,
     name: getCategoryDisplayName(category),
     faq_count: VACCINE_TRAINING_DATA[category].length,
     description: getCategoryDescription(category),
-    sample_questions: VACCINE_TRAINING_DATA[category].slice(0, 2).map(faq => faq.question)
+    sample_questions: VACCINE_TRAINING_DATA[category]
+      .slice(0, 2)
+      .map((faq) => faq.question),
   }));
 
   res.json({
     success: true,
     categories: categories,
-    total_faqs: Object.values(VACCINE_TRAINING_DATA).reduce((sum, faqs) => sum + faqs.length, 0)
+    total_faqs: Object.values(VACCINE_TRAINING_DATA).reduce(
+      (sum, faqs) => sum + faqs.length,
+      0
+    ),
   });
 });
 
 function getCategoryDescription(category) {
   const descriptions = {
-    'faq_general': 'Basic information about vaccines and how they work',
-    'faq_myth_busting': 'Debunking common vaccine myths and misinformation',
-    'guidance_before_vaccination': 'Preparation and what to bring',
-    'guidance_after_vaccination': 'Post-vaccination care and side effect management',
-    'guidance_special_cases': 'Guidance for pregnant women, chronic patients, and missed schedules',
-    'child_vaccination': 'Complete child immunization schedule',
-    'practical_info': 'Where to get vaccinated and cost information',
-    'emergency_support': 'Emergency contacts and problem reporting'
+    faq_general: "Basic information about vaccines and how they work",
+    faq_myth_busting: "Debunking common vaccine myths and misinformation",
+    guidance_before_vaccination: "Preparation and what to bring",
+    guidance_after_vaccination:
+      "Post-vaccination care and side effect management",
+    guidance_special_cases:
+      "Guidance for pregnant women, chronic patients, and missed schedules",
+    child_vaccination: "Complete child immunization schedule",
+    practical_info: "Where to get vaccinated and cost information",
+    emergency_support: "Emergency contacts and problem reporting",
   };
-  return descriptions[category] || 'Vaccine-related information';
+  return descriptions[category] || "Vaccine-related information";
 }
 
 // Search across all FAQs
 router.post("/search", (req, res) => {
   const { query } = req.body;
-  
+
   if (!query) {
-    return res.status(400).json({ success: false, message: "Search query required" });
+    return res
+      .status(400)
+      .json({ success: false, message: "Search query required" });
   }
 
   const results = [];
@@ -869,9 +945,9 @@ router.post("/search", (req, res) => {
         results.push({
           category: getCategoryDisplayName(category),
           question: faq.question,
-          answer: faq.answer.substring(0, 200) + '...',
+          answer: faq.answer.substring(0, 200) + "...",
           relevance: relevanceScore,
-          keywords: faq.keywords
+          keywords: faq.keywords,
         });
       }
     }
@@ -884,25 +960,25 @@ router.post("/search", (req, res) => {
     success: true,
     query: query,
     results: results.slice(0, 10), // Top 10 results
-    result_count: results.length
+    result_count: results.length,
   });
 });
 
 function calculateRelevance(faq, query) {
   let score = 0;
-  
+
   // Check question
   if (faq.question.toLowerCase().includes(query)) score += 3;
-  
+
   // Check answer
   if (faq.answer.toLowerCase().includes(query)) score += 2;
-  
+
   // Check keywords
   for (const keyword of faq.keywords) {
     if (query.includes(keyword)) score += 4;
     if (keyword.includes(query)) score += 2;
   }
-  
+
   return score;
 }
 
@@ -912,7 +988,7 @@ router.get("/stats", (req, res) => {
   for (const [category, faqs] of Object.entries(VACCINE_TRAINING_DATA)) {
     categoryStats[getCategoryDisplayName(category)] = {
       faq_count: faqs.length,
-      sample_questions: faqs.slice(0, 2).map(f => f.question)
+      sample_questions: faqs.slice(0, 2).map((f) => f.question),
     };
   }
 
@@ -921,11 +997,14 @@ router.get("/stats", (req, res) => {
     active_conversations: conversationCache.size,
     training_data: {
       total_categories: Object.keys(VACCINE_TRAINING_DATA).length,
-      total_faqs: Object.values(VACCINE_TRAINING_DATA).reduce((sum, faqs) => sum + faqs.length, 0),
-      category_breakdown: categoryStats
+      total_faqs: Object.values(VACCINE_TRAINING_DATA).reduce(
+        (sum, faqs) => sum + faqs.length,
+        0
+      ),
+      category_breakdown: categoryStats,
     },
     focus: "FAQ & Citizens Guidance System",
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 });
 
@@ -933,24 +1012,28 @@ router.get("/stats", (req, res) => {
 setInterval(() => {
   const now = new Date();
   let cleanedCount = 0;
-  
+
   for (const [conversationId, conversation] of conversationCache.entries()) {
-    const hoursSinceLastActivity = (now - conversation.created_at) / (1000 * 60 * 60);
-    if (hoursSinceLastActivity > 24) { // 24 hours expiry
+    const hoursSinceLastActivity =
+      (now - conversation.created_at) / (1000 * 60 * 60);
+    if (hoursSinceLastActivity > 24) {
+      // 24 hours expiry
       conversationCache.delete(conversationId);
       cleanedCount++;
     }
   }
-  
+
   if (cleanedCount > 0) {
     console.log(`🧹 Cleaned ${cleanedCount} expired conversations`);
   }
 }, 60 * 60 * 1000); // Run every hour
 
-module.exports = {
-  router,
-  setChatbotCollections,
-  VACCINE_TRAINING_DATA,
-  detectVaccineIntent,
-  getRuleBasedResponse
-};
+// module.exports = {
+//   router,
+//   setChatbotCollections,
+//   VACCINE_TRAINING_DATA,
+//   detectVaccineIntent,
+//   getRuleBasedResponse
+// };
+
+export default router;
