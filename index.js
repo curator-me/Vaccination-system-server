@@ -33,12 +33,18 @@ const {
 let vaccineCenterCollection;
 let appointmentCollection;
 let usersCollection;
-let vaccineInventoryCollection;
+let vaccineCollection;
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // your frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // 🔹 MongoDB Setup
@@ -61,7 +67,6 @@ async function connectDB() {
     appointmentCollection = db.collection("appointments");
     usersCollection = db.collection("users");
     vaccineCollection = db.collection("vaccine")
-    vaccineInventoryCollection = db.collection("vaccine_inventory");
 
     // Attach collection setters
     setVaccineCollection({ vaccineCollection });
@@ -78,14 +83,15 @@ async function connectDB() {
       usersCollection, 
       appointmentCollection,
       vaccineCentersCollection: vaccineCenterCollection,
-      vaccineInventoryCollection: vaccineInventoryCollection
+      vaccineCollection: vaccineCollection
     });
 
     // Register routes - FIXED: Use specific paths for each router
     app.use("/api", vaccineCentersRouter);
-    app.use("/api/", appointmentRouter);
-    app.use("/api/chatbot", chatbotRouter);  // 🔹 FIXED: Specific path for chatbot
-    app.use("/api/", userRouter);
+    app.use("/api", appointmentRouter);
+    app.use("/api/chatbot", chatbotRouter);
+    app.use("/api", userRouter);
+    app.use("/api", vaccineRouter);
 
     console.log("✅ Routes and collections set successfully");
   } catch (error) {

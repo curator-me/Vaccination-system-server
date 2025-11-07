@@ -21,4 +21,16 @@ router.get("/vaccine", async (req, res) => {
   }
 });
 
+router.get("/vaccine/:_id", async (req, res) => {
+  try {
+    const _id = req.params._id;
+    const vaccine = await vaccineCollection.findOne({ _id: _id });
+
+    if (!vaccine) return res.status(404).json({ message: "Vaccine not found" });
+    res.json(vaccine);
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 export { router };
