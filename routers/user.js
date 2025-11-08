@@ -163,6 +163,7 @@ router.post("/signup", async (req, res) => {
     // Create new user object
     const newUser = {
       name: name.trim(),
+      role: "user",
       email: email ? email.toLowerCase().trim() : null,
       phone: phone ? phone.replace(/\s/g, "") : null,
       password: hashedPassword,
