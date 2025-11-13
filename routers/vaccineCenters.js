@@ -1,7 +1,7 @@
 // routers/vaccineCenters.js
 import express from "express";
 import { ObjectId } from "mongodb";
-import { verifyToken } from "../middleware.js";
+import { verifyToken } from "../middleware/middleware.js";
 
 const router = express.Router();
 
@@ -25,7 +25,7 @@ router.get("/vaccine-centers",verifyToken, async (req, res) => {
 });
 
 // GET a vaccine center by _id
-router.get("/vaccine-center:_id",verifyToken, async (req, res) => {
+router.get("/vaccine-centers",verifyToken, async (req, res) => {
   try {
     const { _id } = req.params;
     const center = await vaccineCenterCollection.findOne({ _id: new ObjectId(_id) });

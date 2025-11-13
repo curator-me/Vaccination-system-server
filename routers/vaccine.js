@@ -1,13 +1,10 @@
 // routers/vaccine.js
 import express from "express";
-import { ObjectId } from "mongodb";
-import { verifyToken } from "../middleware.js";
-
 const router = express.Router();
 
 let vaccineCollection;
 
-// Function to set the collection from server.js or main file
+// Function to set the collection from main file
 export const setVaccineCollection = ({ vaccineCollection: lc }) => {
   vaccineCollection = lc;
 };
@@ -21,6 +18,7 @@ router.get("/vaccine", async (req, res) => {
   } finally {
   }
 });
+
 router.get("/vaccine/:_id", async (req, res) => {
   try {
     const _id = req.params._id;
