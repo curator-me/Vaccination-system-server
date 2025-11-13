@@ -9,7 +9,7 @@ const client = new MongoClient(uri, {
   },
 });
 
-// ✅ Exported collections
+// Exported collections
 let vaccineCenterCollection;
 let appointmentCollection;
 let usersCollection;
