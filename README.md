@@ -139,14 +139,7 @@ When a user submits an appointment request:
 
 5. **Determine appointment date**
 
-   - Calculate next available appointment based on slots booked:
-
-   ```js
-   const appointmentDate = new Date();
-   appointmentDate.setDate(
-     appointmentDate.getDate() + (vaccine.slot_booked % 5)
-   );
-   ```
+   - Calculate next available appointment based on slots booked.
 
 6. **Create appointment document**
 
