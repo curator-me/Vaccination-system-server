@@ -68,15 +68,15 @@ router.post("/signup", async (req, res) => {
       });
     }
     console.log(2);
-    if (
-      registration_method === "nid" &&
-      (!name || !nid_number || !date_of_birth)
-    ) {
-      return res.status(400).json({
-        message:
-          "Name, NID number, and date of birth are required for NID registration",
-      });
-    }
+    // if (
+    //   registration_method === "nid" &&
+    //   (!name || !nid_number || !date_of_birth)
+    // ) {
+    //   return res.status(400).json({
+    //     message:
+    //       "Name, NID number, and date of birth are required for NID registration",
+    //   });
+    // }
     console.log(3);
     // Email validation if provided
     if (email) {
@@ -437,34 +437,33 @@ router.post("/users/reset-password", async (req, res) => {
 
 // GET user by email
 router.get("/users", async (req, res) => {
-  const { email } = req.query; // get email from query string
+  const { email } = req.query;
   console.log("Searching for user with email:", email);
+
   if (!email) {
     return res.status(400).json({ message: "Email is required" });
   }
 
   try {
-    const user = await usersCollection.findOne({ email }); // search by email
+    const user = await usersCollection.findOne({ email });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+    // Optionally exclude sensitive fields like password
+    const { password, ...safeUser } = user;
+    console.log(user);
 
-    // Exclude sensitive fields like password
-    const { _id, name, phone, date_of_birth, nid_number } = user;
-    res.json({
-      _id,
-      name,
-      email: user.email, // Use user.email instead of the conflicted variable
-      phone,
-      date_of_birth,
-      nid_number,
-    });
-  } catch (err) {
-    console.error("Error fetching user:", err);
-    res.status(500).json({ message: "Server error" });
+    res.status(200).json(safeUser);
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
 
 export default router;
+
+
+
+

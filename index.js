@@ -146,6 +146,37 @@ National Vaccination System
   }
 });
 
+
+export const startVaccineStockCron = (
+  vaccineCenterCollection,
+  handleSupplyRequest
+) => {
+  // Schedule to run every day at 11 PM
+  cron.schedule("0 23 * * *", async () => {
+    console.log("🕚 Running daily vaccine stock check at 11 PM...");
+
+    try {
+      // Fetch all centers
+      const centers = await vaccineCenterCollection.find({}).toArray();
+
+      for (const center of centers) {
+        const { center_name, remaining_stock } = center;
+
+        if (remaining_stock <= 50) {
+          console.log(
+            `Low stock detected at ${center_name}: ${remaining_stock} doses left.`
+          );
+          await handleSupplyRequest(center);
+        }
+      }
+
+      console.log("✅ Vaccine stock check completed successfully.");
+    } catch (err) {
+      console.error("❌ Error during vaccine stock check:", err);
+    }
+  });
+};
+
 // 🔹 Root Route
 app.get("/", (req, res) => {
   res.send("Backend is running!");
@@ -163,3 +194,5 @@ app.get("/health", (req, res) => {
 app.listen(port, () => {
   console.log(`🚀 Server running on port ${port}`);
 });
+
+
