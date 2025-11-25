@@ -135,7 +135,7 @@ When a user submits an appointment request:
 
 4. **Check slot availability**
 
-   - If all slots are booked (`slot_booked >= slot`), return an error.
+   - If all slots are booked step 5.
 
 5. **Determine appointment date**
 
@@ -143,7 +143,7 @@ When a user submits an appointment request:
 
 6. **Create appointment document**
 
-   - Save user info, center info, vaccine info, registration number, date of registration, appointment date, and status `'applied'`.
+   - Save user info, center info, vaccine info, registration number, date of registration, appointment date, and status `'applied'`. Generate a vaccine card.
 
 7. **Update booked slots**
 
