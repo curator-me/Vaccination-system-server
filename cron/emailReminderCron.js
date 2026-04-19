@@ -1,17 +1,9 @@
 // cron/emaiRreminderCron.js
 import cron from "node-cron";
 import dayjs from "dayjs";
-import nodemailer from "nodemailer";
+import transporter from "../service/nodemailer.js";
 
 export const startReminderCron = ({ appointmentCollection, usersCollection }) => {
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-
   cron.schedule("0 22 * * *", async () => {
     console.log("Running reminder job at 10 PM...");
 

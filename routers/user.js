@@ -7,8 +7,8 @@ import {
   hashPassword,
   comparePassword,
 } from "../middleware/middleware.js";
-import multer from "multer";
-import nodemailer from "nodemailer";
+import transporter from "../service/nodemailer.js";
+import upload from "../service/multer.js";
 
 const router = express.Router();
 let usersCollection;
@@ -16,32 +16,10 @@ let usersCollection;
 // Temporary in-memory storage for pending signups
 const pendingSignups = new Map();
 
-// Configure the email transporter
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
-
 // Function to inject MongoDB collection
 export const setUsersCollection = ({ usersCollection: uc }) => {
   usersCollection = uc;
 };
-
-// Configure multer for NID image uploads
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/nid_images/"); // folder to store NID images
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + "-" + file.originalname);
-  },
-});
-
-const upload = multer({ storage });
 
 // 1. POST /users/signup-req
 router.post("/users/signup-req", async (req, res) => {
@@ -63,7 +41,7 @@ router.post("/users/signup-req", async (req, res) => {
     // Generate a 6-digit verification code (OTP)
     const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Store in memory
+    // Store in temporary memory
     pendingSignups.set(email.toLowerCase(), {
       email: email.toLowerCase(),
       password: hashedPassword,
@@ -144,7 +122,7 @@ router.post("/users/verify-signup", async (req, res) => {
 });
 
 // 3. POST /users/verify-user
-router.post("/users/verify-user", upload.fields([
+router.post("/users/verify-user", verifyToken, upload.fields([
   { name: "nid_front_image", maxCount: 1 }, 
   { name: "nid_back_image", maxCount: 1 }
 ]), async (req, res) => {
